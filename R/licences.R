@@ -1,3 +1,5 @@
+# This file lists the licenses a user may select from.
+
 Licences <- list()
 Licences$Digital_Public_Space_Licence <- "http://bbcarchdev.github.io/licences/dps/1.0#id"
 Licences$CC0_1.0_Universal_Public_Domain_Dedication <- "http://creativecommons.org/publicdomain/zero/1.0/"
