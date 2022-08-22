@@ -12,8 +12,9 @@ LazyData: true
 Imports:
     jsonlite,
     anytime,
+    rapportools
 Depends:
     magrittr,
-    urltools
-    
+    urltools,
+    rapportools
 
