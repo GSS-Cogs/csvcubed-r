@@ -163,7 +163,9 @@ add.attribute.configuration <- function(config,
   return(config)
 }
 
-attribute.values <- function(label = "", description = "", definition.uri = "", from.existing = "") {
+possible.attribute.values <- list()
+
+attribute.values <- function(label, description = "", definition.uri = "", from.existing = "") {
   if (!isSingleString(label) & label != "") {
     stop("Warning: Label must be a single nonempty string.")
   }
@@ -173,7 +175,9 @@ attribute.values <- function(label = "", description = "", definition.uri = "", 
   if (!isSingleString(definition.uri) & is_valid_uri(definition.uri)) {
     stop("Warning: definition.uri must be a uri.")
   }
-  return(list(label = label, description = description, definition.uri = definition.uri, from_existing = from.existing))
+  unique_identifier <- paste(label, 12312312)
+  possible.attribute.values[unique_identifier] <- list(label = label, description = description, definition.uri = definition.uri, from_existing = from.existing)
+  return(unique_identifier)
 }
 
 measure.values <- function(label = "", description = "", definition.uri = "", from.existing = "") {
@@ -212,8 +216,50 @@ add.observation.configuration <- function(config,
     measure = measure,
     unit = unit
   )
-  config.
+  return(config)
 }
+
+add.unit.configuration <- function(config,
+                                   column.name,
+                                   unit.values = "",
+){
+  config <- add.column.configuration(config, type = "unit", column.name, unit.values)
+  return(config)
+}
+
+UnitValues <- function(label,
+                       description = '',
+                       from.existing = "",
+                       definition.uri = "",
+                       scaling.factor = "",
+                       quantitiy.kind = "",
+                       si.scaling.factor = "",){
+  if(!isSingleString(label)|label==''){
+    stop('Warning: label must be single nonempty string!')
+  }
+  if(!isSingleString(description)|description==''){
+    stop("Warning: description must be single nonempty string!")
+  }
+  if(!is_valid_uri(from.existing)){
+    stop("Warning: from.existing must be a uri.")
+  }
+  if(!is_valid_uri(definition.uri)){
+    stop("Warning: definition.uri must be a uri.")
+  }
+  if(!isSingleNumber(scaling.factor)){
+    stop("Warning: scaling.factor must be a single number.")
+  }
+  if(!is_valid_uri(quantity.kind)){
+    stop("Warning: quantity.kind must be a uri.")
+  }
+  if(!isSingleNumber(si.scaling.factor)){
+    stop("Warning: si.scaling.factor must be a single number.")
+  }
+  return(list(label= label, description = description, from_existing= from.existing,
+              definition_uri = definition.uri, scaling_factor = scaling.factor,
+              quantitiy_kind = quantitiy.kind, si_scaling_factor =si.scaling.factor))
+}
+
 
 add.column.configuration <- function(config,
                                      column.name = "",
@@ -228,7 +274,8 @@ add.column.configuration <- function(config,
                                      from.template = "",
                                      data.type = "",
                                      required = "",
-                                     values = "") {
+                                     values = "",
+                                     unit.values = "") {
   if (column.name %in% config$column_names) {
     eval(str2expression(paste("config$columns<- append(config$columns, list(", column.name, "= list()", "))", sep = "")))
   } else {
@@ -245,6 +292,7 @@ add.column.configuration <- function(config,
   config <- assign.column.attribute.string(config, column.name, "data_type", data.type)
   config <- assign.column.attribute.boolean(config, column.name, "required", required)
   config <- assign.column.values(config, column.name, values)
+  config <- assign.column.unit.values(config, column.name, unit.values)
   return(config)
 }
 
@@ -257,102 +305,4 @@ generate.json.configuration <- function(config, file = "") {
   config_json_str <- jsonlite::toJSON(config_list, auto_unbox = T, pretty = T)
   print(config_json_str)
   write(config_json_str, file = file)
-}
-
-isSingleString <- function(input) {
-  is.character(input) & length(input) == 1
-}
-
-is_valid_uri <- function(string) {
-  # https://www.rfc-editor.org/rfc/pdfrfc/rfc2396.txt.pdf
-  return(
-    length(
-      grep(
-        "^(([^:/?#]+):)(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?",
-        string
-      )
-    ) > 0
-  )
-}
-
-assign.column.attribute.uri <- function(config, column.name, attribute, uri) {
-  if (is_valid_uri(uri)) {
-    eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(", attribute, "='", uri, "'))", sep = "")))
-  } else if (uri == "") {
-    return(config)
-  } else {
-    stop(paste("Warning: ", attribute, " must a uri.", sep = ""))
-  }
-  return(config)
-}
-
-assign.column.attribute.string <- function(config, column.name, attribute, string) {
-  if (isSingleString(string)) {
-    if (string != "") {
-      eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(", attribute, "='", string, "'))", sep = "")))
-    }
-  } else {
-    stop(paste("Warning: ", attribute, " must a single nonempty string.", sep = ""))
-  }
-  return(config)
-}
-
-assign.column.attribute.boolean <- function(config, column.name, attribute, boolean) {
-  if (rapportools:is.boolean(boolean)) {
-    eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(", attribute, "=", boolean, "))", sep = "")))
-  } else if (boolean == "") {
-    return(config)
-  } else {
-    stop("Warning: required must be a boolean.")
-  }
-}
-
-assign.column.code.list <- function(config, column.name, code.list) {
-  if (rapportools:is.boolean(code.list)) {
-    eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(code_list=", code.list, "'))", sep = "")))
-  } else if (is_valid_uri(code.list)) {
-    eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(code_list=", code.list, "'))", sep = "")))
-  } else if (code.list == "") {
-    return(config)
-  } else {
-    stop("Warning: code.list must be a boolean or a uri.")
-  }
-}
-
-assign.themes <- function(config, themes) {
-  if (is.character(themes)) {
-    if (length(themes) > 1) {
-      config$themes <- themes
-    } else if (themes != "") {
-      config$themes <- themes
-    } else {
-      stop("Warning: 'themes' must be a single nonempty string or a vector of strings.")
-    }
-  } else {
-    stop("Warning: 'themes' must be a single nonempty string or a vector of strings.")
-  }
-  return(config)
-}
-
-assign.keywords <- function(config, keywords) {
-  if (is.character(keywords)) {
-    if (length(keywords) > 1) {
-      config$keywords <- keywords
-    } else if (keywords != "") {
-      config$keywords <- keywords
-    } else {
-      stop("Warning: 'keywords' must be a single string or a vector of strings.")
-    }
-  } else {
-    stop("Warning: 'keywords' must be a single string or a vector of strings.")
-  }
-  return(config)
-}
-
-
-assign.column.values <- function(config, column.name, values) {
-  if (rapportools:is.boolean(values) | is.list((values))) {
-    eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(values=", values, "'))", sep = "")))
-  }
-  return(config)
 }
