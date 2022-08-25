@@ -5,6 +5,7 @@ isSingleString <- function(input) {
 isSingleNumber <- function(input){
   is.numberic(input) & length(input) ==1
 }
+
 is_valid_uri <- function(string) {
   # https://www.rfc-editor.org/rfc/pdfrfc/rfc2396.txt.pdf
   return(
@@ -100,3 +101,4 @@ assign.column.values <- function(config, column.name, values) {
   }
   return(config)
 }
+
