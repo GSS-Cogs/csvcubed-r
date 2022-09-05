@@ -1,9 +1,10 @@
-isSingleString <- function(input) {
+#' @export
+is.single.string <- function(input) {
   is.character(input) & length(input) == 1
 }
 
-isSingleNumber <- function(input){
-  is.numberic(input) & length(input) ==1
+is.single.number <- function(input) {
+  is.numeric(input) & length(input) == 1
 }
 
 is_valid_uri <- function(string) {
@@ -30,7 +31,7 @@ assign.column.attribute.uri <- function(config, column.name, attribute, uri) {
 }
 
 assign.column.attribute.string <- function(config, column.name, attribute, string) {
-  if (isSingleString(string)) {
+  if (is.single.string(string)) {
     if (string != "") {
       eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(", attribute, "='", string, "'))", sep = "")))
     }
@@ -41,7 +42,7 @@ assign.column.attribute.string <- function(config, column.name, attribute, strin
 }
 
 assign.column.attribute.boolean <- function(config, column.name, attribute, boolean) {
-  if (rapportools:is.boolean(boolean)) {
+  if (rapportools::is.boolean(boolean)) {
     eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(", attribute, "=", boolean, "))", sep = "")))
   } else if (boolean == "") {
     return(config)
@@ -51,8 +52,8 @@ assign.column.attribute.boolean <- function(config, column.name, attribute, bool
   return(config)
 }
 
-assign.column.code.list <- function(config, column.name, code.list) {
-  if (rapportools:is.boolean(code.list)) {
+assign.column.attribute.code.list <- function(config, column.name, code.list) {
+  if (rapportools::is.boolean(code.list)) {
     eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(code_list=", code.list, "'))", sep = "")))
   } else if (is_valid_uri(code.list)) {
     eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(code_list=", code.list, "'))", sep = "")))
@@ -70,8 +71,6 @@ assign.themes <- function(config, themes) {
       config$themes <- themes
     } else if (themes != "") {
       config$themes <- themes
-    } else {
-      stop("Warning: 'themes' must be a single nonempty string or a vector of strings.")
     }
   } else {
     stop("Warning: 'themes' must be a single nonempty string or a vector of strings.")
@@ -85,8 +84,6 @@ assign.keywords <- function(config, keywords) {
       config$keywords <- keywords
     } else if (keywords != "") {
       config$keywords <- keywords
-    } else {
-      stop("Warning: 'keywords' must be a single string or a vector of strings.")
     }
   } else {
     stop("Warning: 'keywords' must be a single string or a vector of strings.")
@@ -95,10 +92,51 @@ assign.keywords <- function(config, keywords) {
 }
 
 
-assign.column.values <- function(config, column.name, values) {
-  if (rapportools:is.boolean(values) | is.list((values))) {
-    eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(values=", values, "'))", sep = "")))
+assign.column.attribute.values <- function(config, column.name, attribute, values) {
+  if (rapportools::is.boolean(values)) {
+    config$columns[[column.name]][[attribute]] <- unclass(values)
+  }
+  if (class(values) == "values") {
+    config$columns[[column.name]][[attribute]] <- values
   }
   return(config)
 }
 
+assign.column.attribute.unit.values <- function(config, column.name, attribute, unit.values) {
+  if (rapportools::is.boolean(unit.values)) {
+    config$columns[[column.name]][[attribute]] <- unit.values
+  }
+  if (class(unit.values) == "unit.values") {
+    config$columns[[column.name]][[attribute]] <- unclass(unit.values)
+  }
+  return(config)
+}
+
+
+values <- function(...) {
+  values <- list(...)
+  l <- list()
+  for (value in values) {
+    if (class(value) != "value") {
+      stop("Warning: values does not meet requirement. Try using attribute.value() or measure.value().")
+    } else {
+      l <- append(l, list(unclass(value)))
+    }
+  }
+  class(l) <- "values"
+  return(l)
+}
+
+unit.values <- function(...) {
+  values <- list(...)
+  l <- list()
+  for (value in values) {
+    if (class(value) != "unit") {
+      stop("Warning: values does not meet requirement. Try using unit().")
+    } else {
+      l <- append(l, list(unclass(value)))
+    }
+  }
+  class(l) <- "unit.values"
+  return(l)
+}

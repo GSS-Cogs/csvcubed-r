@@ -1,24 +1,12 @@
 dimension.from.existing <- list(
-  "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
-  "http://purl.org/linked-data/sdmx/2009/dimension#age",
-  "http://purl.org/linked-data/sdmx/2009/dimension#civilStatus",
-  "http://purl.org/linked-data/sdmx/2009/dimension#currency",
-  "http://purl.org/linked-data/sdmx/2009/dimension#educationLev",
-  "http://purl.org/linked-data/sdmx/2009/dimension#freq",
-  "http://purl.org/linked-data/sdmx/2009/dimension#occupation",
-  "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
-  "http://purl.org/linked-data/sdmx/2009/dimension#sex",
-  "http://purl.org/linked-data/sdmx/2009/dimension#timePeriod"
-)
-names(dimension.from.existing) <- c(
-  "refPeriod",
-  "age",
-  "civilStatus",
-  "currency",
-  "educationLev",
-  "freq",
-  "occupation",
-  "refArea",
-  "sex",
-  "timePeriod"
+  "refPeriod" = "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
+  "age" = "http://purl.org/linked-data/sdmx/2009/dimension#age",
+  "civilStatus" = "http://purl.org/linked-data/sdmx/2009/dimension#civilStatus",
+  "currency" = "http://purl.org/linked-data/sdmx/2009/dimension#currency",
+  "educationLev" = "http://purl.org/linked-data/sdmx/2009/dimension#educationLev",
+  "freq" = "http://purl.org/linked-data/sdmx/2009/dimension#freq",
+  "occupation" = "http://purl.org/linked-data/sdmx/2009/dimension#occupation",
+  "refArea" = "http://purl.org/linked-data/sdmx/2009/dimension#refArea",
+  "sex" = "http://purl.org/linked-data/sdmx/2009/dimension#sex",
+  "timePeriod" = "http://purl.org/linked-data/sdmx/2009/dimension#timePeriod"
 )
