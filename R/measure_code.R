@@ -12,7 +12,7 @@ add.measure.configuration <- function(config,
     column.name = column.name,
     cell.uri.template = cell.uri.template,
     values = values,
-    type = "measure"
+    type = "measures"
   )
   return(config)
 }

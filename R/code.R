@@ -73,6 +73,7 @@ add.column.configuration <- function(config,
     stop(paste('Warning: label \"', column.name, '\"is not one of the columns.', sep = ""))
   }
   eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(type='", type, "'))", sep = "")))
+  config <- assign.column.attribute.string(config, column.name, "label", label)
   config <- assign.column.attribute.string(config, column.name, "description", description)
   config <- assign.column.attribute.uri(config, column.name, "from_existing", from.existing)
   config <- assign.column.attribute.uri(config, column.name, "definition_uri", definition.uri)
@@ -84,7 +85,7 @@ add.column.configuration <- function(config,
   config <- assign.column.attribute.boolean(config, column.name, "required", required)
   config <- assign.column.attribute.values(config, column.name, "values", values)
   config <- assign.column.attribute.values(config, column.name, "measure", measure)
-  config <- assign.column.attribute.unit.values(config, column.name, "unit", unit)
+  config <- assign.column.attribute.unit.values(config, column.name, "values", unit)
   return(config)
 }
 

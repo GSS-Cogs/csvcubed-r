@@ -6,7 +6,7 @@ add.observation.configuration <- function(config,
     column.name = column.name,
     measure = measure,
     unit = unit,
-    type = "observation"
+    type = "observations"
   )
   return(config)
 }

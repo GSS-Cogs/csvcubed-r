@@ -1,7 +1,7 @@
 add.unit.configuration <- function(config,
                                    column.name,
                                    unit = "") {
-  config <- add.column.configuration(config, type = "unit", column.name = column.name, unit = unit)
+  config <- add.column.configuration(config, type = "units", column.name = column.name, unit = unit)
   return(config)
 }
 
