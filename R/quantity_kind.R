@@ -1,3 +1,5 @@
+#' A list of strings that can be used to fill in the quantity.kind argument in unit().
+#' @export
 quantity.kind <- list(
   "Resistivity" = "http://qudt.org/vocab/quantitykind/Resistivity",
   "PropellantMeanBulkTemperature" = "http://qudt.org/vocab/quantitykind/PropellantMeanBulkTemperature",

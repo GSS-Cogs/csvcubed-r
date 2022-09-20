@@ -1,13 +1,18 @@
-#' @export
+#' private function
+#' @noRd
 is.single.string <- function(input) {
   is.character(input) & length(input) == 1
 }
 
+#' private function
+#' @noRd
 is.single.number <- function(input) {
   is.numeric(input) & length(input) == 1
 }
 
-is_valid_uri <- function(string) {
+#' private function
+#' @noRd
+is.valid.uri <- function(string) {
   # https://www.rfc-editor.org/rfc/pdfrfc/rfc2396.txt.pdf
   return(
     length(
@@ -19,9 +24,11 @@ is_valid_uri <- function(string) {
   )
 }
 
+#' private function
+#' @noRd
 assign.column.attribute.uri <- function(config, column.name, attribute, uri) {
-  if (is_valid_uri(uri)) {
-    eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(", attribute, "='", uri, "'))", sep = "")))
+  if (is.valid.uri(uri)) {
+    config$columns[[column.name]][[attribute]] <- uri
   } else if (uri == "") {
     return(config)
   } else {
@@ -30,10 +37,12 @@ assign.column.attribute.uri <- function(config, column.name, attribute, uri) {
   return(config)
 }
 
+#' private function
+#' @noRd
 assign.column.attribute.string <- function(config, column.name, attribute, string) {
   if (is.single.string(string)) {
     if (string != "") {
-      eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(", attribute, "='", string, "'))", sep = "")))
+      config$columns[[column.name]][[attribute]] <- string
     }
   } else {
     stop(paste("Warning: ", attribute, " must a single nonempty string.", sep = ""))
@@ -41,9 +50,11 @@ assign.column.attribute.string <- function(config, column.name, attribute, strin
   return(config)
 }
 
+#' private function
+#' @noRd
 assign.column.attribute.boolean <- function(config, column.name, attribute, boolean) {
   if (rapportools::is.boolean(boolean)) {
-    eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(", attribute, "=", boolean, "))", sep = "")))
+    config$columns[[column.name]][[attribute]] <- boolean
   } else if (boolean == "") {
     return(config)
   } else {
@@ -52,11 +63,13 @@ assign.column.attribute.boolean <- function(config, column.name, attribute, bool
   return(config)
 }
 
+#' private function
+#' @noRd
 assign.column.attribute.code.list <- function(config, column.name, code.list) {
   if (rapportools::is.boolean(code.list)) {
-    eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(code_list=", code.list, "'))", sep = "")))
-  } else if (is_valid_uri(code.list)) {
-    eval(str2expression(paste("config$columns$", column.name, "<- append(", "config$columns$", column.name, ", list(code_list=", code.list, "'))", sep = "")))
+    config$columns[[column.name]][["code_list"]] <- code.list
+  } else if (is.valid.uri(code.list)) {
+    config$columns[[column.name]][["code_list"]] <- code.list
   } else if (code.list == "") {
     return(config)
   } else {
@@ -65,6 +78,8 @@ assign.column.attribute.code.list <- function(config, column.name, code.list) {
   return(config)
 }
 
+#' private function
+#' @noRd
 assign.themes <- function(config, themes) {
   if (is.character(themes)) {
     if (length(themes) > 1) {
@@ -78,6 +93,8 @@ assign.themes <- function(config, themes) {
   return(config)
 }
 
+#' private function
+#' @noRd
 assign.keywords <- function(config, keywords) {
   if (is.character(keywords)) {
     if (length(keywords) > 1) {
@@ -91,52 +108,50 @@ assign.keywords <- function(config, keywords) {
   return(config)
 }
 
-
+#' private function
+#' @noRd
 assign.column.attribute.values <- function(config, column.name, attribute, values) {
   if (rapportools::is.boolean(values)) {
-    config$columns[[column.name]][[attribute]] <- unclass(values)
-  }
-  if (class(values) == "values") {
     config$columns[[column.name]][[attribute]] <- values
+  } else if (inherits(values,"values")) {
+    config$columns[[column.name]][[attribute]] <- unclass(values)
+  } else if (values != "") {
+    stop("Warning: values does not meet requirement. Try using values().")
   }
   return(config)
 }
 
+#' private function
+#' @noRd
 assign.column.attribute.unit.values <- function(config, column.name, attribute, unit.values) {
   if (rapportools::is.boolean(unit.values)) {
     config$columns[[column.name]][[attribute]] <- unit.values
-  }
-  if (class(unit.values) == "unit.values") {
+  } else if (inherits(unit.values, "unit.values")) {
     config$columns[[column.name]][[attribute]] <- unclass(unit.values)
+  } else if (unit.values != "") {
+    stop("Warning: values does not meet requirement. Try using unit.values().")
   }
   return(config)
 }
 
-
-values <- function(...) {
-  values <- list(...)
-  l <- list()
-  for (value in values) {
-    if (class(value) != "value") {
-      stop("Warning: values does not meet requirement. Try using attribute.value() or measure.value().")
-    } else {
-      l <- append(l, list(unclass(value)))
-    }
+#' private function
+#' @noRd
+assign.column.attribute.measure <- function(config, column.name, attribute, measure) {
+  if (inherits(measure,"value")) {
+    config$columns[[column.name]][[attribute]] <- unclass(measure)
+  } else if (measure != "") {
+    stop("Warning: measure does not meet requirement. Try measure.value()")
   }
-  class(l) <- "values"
-  return(l)
+  return(config)
 }
 
-unit.values <- function(...) {
-  values <- list(...)
-  l <- list()
-  for (value in values) {
-    if (class(value) != "unit") {
-      stop("Warning: values does not meet requirement. Try using unit().")
-    } else {
-      l <- append(l, list(unclass(value)))
-    }
+#' private function
+#' @noRd
+assign.column.attribute.unit <- function(config, column.name, attribute, unit) {
+  if (inherits(unit,"unit")) {
+    config$columns[[column.name]][[attribute]] <- unclass(unit)
+  } else if (unit != "") {
+    stop("Warning: unit does not meet requirement. Try unit()")
   }
-  class(l) <- "unit.values"
-  return(l)
+  return(config)
 }

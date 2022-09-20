@@ -1,3 +1,5 @@
+#' A list of organizations uris that could be used to fill in the creator and publisher function argument.
+#' @export
 organizations <- list(
   "Open Knowledge Foundation" = "http://dbpedia.org/resource/Open_Knowledge_Foundation",
   "ONS Geography Linked Data" = "http://statistics.data.gov.uk",

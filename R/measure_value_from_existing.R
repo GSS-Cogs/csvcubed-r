@@ -1,3 +1,6 @@
+#' A list of strings that can be used to fill in the from.existing argument in add.measure.column().
+
+#' @export
 measure.value.from.existing <- list(
   "count" = "http://gss-data.org.uk/def/measure/count",
   "travel-time" = "http://gss-data.org.uk/def/measure/travel-time",

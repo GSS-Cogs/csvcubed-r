@@ -1,3 +1,6 @@
+#' A list to be used to fill in the from.existing argument of attribute.value().
+#'
+#' @export
 attribute.value.from.existing <- list(
   "unitMeasure" = "http://gss-data.org.uk/def/concept/cogs-markers/suppressed",
   "unitMult" = "http://gss-data.org.uk/def/concept/cogs-markers/estimated",

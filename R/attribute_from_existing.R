@@ -1,3 +1,6 @@
+#' A list of URIs that can be used to fill in the from.existing argument in add.resource.attribute.column().
+#'
+#' @export
 attribute.from.existing <- list(
   "embargoTime" = "http://purl.org/linked-data/sdmx/2009/attribute#embargoTime",
   "metaLastUpdate" = "http://purl.org/linked-data/sdmx/2009/attribute#metaLastUpdate",

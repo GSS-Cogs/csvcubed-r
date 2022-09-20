@@ -1,3 +1,5 @@
+#' A list of strings that can be used to fill in the from.existing argument in unit().
+#' @export
 unit.value.from.existing <- list(
   "MicroW-PER-M2" = "http://qudt.org/vocab/unit/MicroW-PER-M2",
   "PER-H" = "http://qudt.org/vocab/unit/PER-H",
