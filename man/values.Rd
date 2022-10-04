@@ -7,7 +7,7 @@
 values(...)
 }
 \arguments{
-\item{...}{value objects. Created by measure.value() or attribute value().}
+\item{...}{value objects. Created by measure.value() or attribute.value().}
 }
 \description{
 Create a values object for use in other functions
@@ -15,8 +15,12 @@ Create a values object for use in other functions
 \examples{
 data(example.data)
 config <- create.config(example.data, title = "sweden_at_eurovision_no_missing")
-config <- add.measure.column(config, column.name = "Measure",
-   values = values(measure.value(label = "Final Rank"),
-   measure.value(label = "Final Points"),
-   measure.value(label = "People on Stage")))
+config <- add.measure.column(config,
+  column.name = "Measure",
+  values = values(
+    measure.value(label = "Final Rank"),
+    measure.value(label = "Final Points"),
+    measure.value(label = "People on Stage")
+  )
+)
 }

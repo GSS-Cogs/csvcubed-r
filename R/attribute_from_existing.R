@@ -1,7 +1,7 @@
 #' A list of URIs that can be used to fill in the from.existing argument in add.resource.attribute.column().
 #'
 #' @export
-attribute.from.existing <- list(
+Attributes <- list(
   "embargoTime" = "http://purl.org/linked-data/sdmx/2009/attribute#embargoTime",
   "metaLastUpdate" = "http://purl.org/linked-data/sdmx/2009/attribute#metaLastUpdate",
   "metaCertified" = "http://purl.org/linked-data/sdmx/2009/attribute#metaCertified",
@@ -19,7 +19,6 @@ attribute.from.existing <- list(
   "timeOutput" = "http://purl.org/linked-data/sdmx/2009/attribute#timeOutput",
   "valuation" = "http://purl.org/linked-data/sdmx/2009/attribute#valuation",
   "unitMeasure" = "http://purl.org/linked-data/sdmx/2009/attribute#unitMeasure",
-  "unitMult" = "http://purl.org/linked-data/sdmx/2009/attribute#unitMult",
   "obsStatus" = "http://purl.org/linked-data/sdmx/2009/attribute#obsStatus",
   "profMeth" = "http://purl.org/linked-data/sdmx/2009/attribute#profMeth",
   "profImp" = "http://purl.org/linked-data/sdmx/2009/attribute#profImp",
@@ -45,15 +44,5 @@ attribute.from.existing <- list(
   "instManLaOa" = "http://purl.org/linked-data/sdmx/2009/attribute#instManLaOa",
   "instManShar" = "http://purl.org/linked-data/sdmx/2009/attribute#instManShar",
   "mAgency" = "http://purl.org/linked-data/sdmx/2009/attribute#mAgency",
-  "iMResRel" = "http://purl.org/linked-data/sdmx/2009/attribute#iMResRel",
-  "embargoTime" = "http://purl.org/linked-data/sdmx/2009/attribute#embargoTime",
-  "metaLastUpdate" = "http://purl.org/linked-data/sdmx/2009/attribute#metaLastUpdate",
-  "metaCertified" = "http://purl.org/linked-data/sdmx/2009/attribute#metaCertified",
-  "metaUpdate" = "http://purl.org/linked-data/sdmx/2009/attribute#metaUpdate",
-  "metaPosted" = "http://purl.org/linked-data/sdmx/2009/attribute#metaPosted",
-  "punctuality" = "http://purl.org/linked-data/sdmx/2009/attribute#punctuality",
-  "timeliness" = "http://purl.org/linked-data/sdmx/2009/attribute#timeliness",
-  "timePerCollect" = "http://purl.org/linked-data/sdmx/2009/attribute#timePerCollect",
-  "timeSource" = "http://purl.org/linked-data/sdmx/2009/attribute#timeSource",
-  "timeOutput" = "http://purl.org/linked-data/sdmx/2009/attribute#timeOutput"
+  "iMResRel" = "http://purl.org/linked-data/sdmx/2009/attribute#iMResRel"
 )

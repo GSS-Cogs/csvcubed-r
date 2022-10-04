@@ -31,9 +31,9 @@ create.config(
 
 \item{summary}{A string. A shorter summary of the data set.}
 
-\item{publisher}{A string. The publisher of the data set (uri). Can use built-in list "organizations" to auto-fill.}
+\item{publisher}{A string. The publisher of the data set (uri). Can use built-in list "Organizations" to auto-fill.}
 
-\item{creator}{A string. The creator of the data set (uri). Can use built-in list "organizations" to auto-fill.}
+\item{creator}{A string. The creator of the data set (uri). Can use built-in list "Organizations" to auto-fill.}
 
 \item{themes}{A vector of strings. The themes of the data set.}
 
@@ -43,7 +43,7 @@ create.config(
 
 \item{dataset.modified}{A String. Date time that the data set was last modified published in ISO 8601 format, e.g. 2022-03-31 or 2022-03-31T12:54:30Z.}
 
-\item{license}{A String. URI that represents the copyright license applying to this cube. Can use built-in list "licences" to auto-fill.}
+\item{license}{A String. URI that represents the copyright license applying to this cube. Can use built-in list "Licences" to auto-fill.}
 
 \item{public.contact.point.uri}{A string. URI that provides a public contact point for discussion of the data set, e.g. mailto:contact.point@example.com.}
 }
@@ -54,11 +54,15 @@ A configuration object.
 Users can use this function to configure the metadata of the configuration, and then add column configurations by using other functions.
 }
 \examples{
-#load data
+# load data
 data(example.data)
-#create a configuration for example.data
-config <- create.config(example.data, title = "sweden_at_eurovision_no_missing",
-   dataset.issued ="2016-09-01 10:11:12",
-   publisher = organizations$`ONS Geography Linked Data`,
-   themes = c("abc", "def"))
+# create a configuration for example.data
+config <- create.config(example.data,
+  title = "Sweden at Eurovision",
+  summary = "List of Swedish entries to the Eurovision Song Contest since 1958.",
+  license = "https://creativecommons.org/licenses/by/4.0/",
+  publisher = Organizations$Open_Knowledge_Foundation,
+  dataset.issued = "2022-04-08",
+  keywords = c("Eurovision", "Song Contest", "Sweden", "European Broadcasting Union")
+)
 }

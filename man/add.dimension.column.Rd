@@ -6,7 +6,7 @@
 \usage{
 add.dimension.column(
   config,
-  column.name = "",
+  column.name,
   label = "",
   description = "",
   from.existing = "",
@@ -25,7 +25,7 @@ add.dimension.column(
 
 \item{description}{String. A explanation of what the Dimension represents.}
 
-\item{from.existing}{String. URI of an existing dimension to reuse or extend. Use built-in list dimension.from.existing to auto-fill.}
+\item{from.existing}{String. URI of an existing dimension to reuse or extend. Use built-in list Dimensions to auto-fill.}
 
 \item{definition.uri}{String. Source URI for the definition of the Dimension}
 
@@ -36,7 +36,7 @@ Boolean: Whether or not to generate a code list defining the unique values permi
 String:The URI of a code list defining the unique values permitted in this dimension
 String: The path to the code list json defined using the code list config schema.}
 
-\item{from.template}{String. Dimension column templates. Use cuilt-in list dimension.from.template to autofill. Also, Users can use add.year.column() and other functions to achieve the same effect.}
+\item{from.template}{String. Dimension column templates. Use built-in list DimensionTemplates to autofill. Also, Users can use add.year.column() and other functions to achieve the same effect.}
 }
 \value{
 A configuration object with the new column added to it.
@@ -47,7 +47,9 @@ Add a dimension column to the configuration.
 \examples{
 data(example.data)
 config <- create.config(example.data, title = "sweden_at_eurovision_no_missing")
-config <- add.dimension.column(config, column.name = "Year",
-   from.template = dimension.from.template$year,
-   from.existing = dimension.from.existing$timePeriod)
+config <- add.dimension.column(config,
+  column.name = "Year",
+  from.template = DimensionTemplates$year,
+  from.existing = Dimensions$timePeriod
+)
 }

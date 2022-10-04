@@ -1,8 +1,8 @@
-#' A list of strings that can be used to fill in the from.existing argument in add.resource.attribute.column().
+#' A list of strings that can be used to fill in the from.template argument in add.dimension.column().
 #' @export
-dimension.from.template <- list(
+DimensionTemplates <- list(
   "year" = "year",
-  "half-year" = "half-year",
+  "half_year" = "half-year",
   "quarter" = "quarter",
   "month" = "month",
   "week" = "week",
@@ -10,9 +10,9 @@ dimension.from.template <- list(
   "hour" = "hour",
   "minute" = "minute",
   "second" = "second",
-  "government-year" = "government-year",
-  "government-half-year" = "government-half-year",
-  "government-quarter" = "government-quarter",
-  "government-week" = "government-week",
-  "gregorian-instant" = "gregorian-instant"
+  "government_year" = "government-year",
+  "government_half_year" = "government-half-year",
+  "government_quarter" = "government-quarter",
+  "government_week" = "government-week",
+  "gregorian_instant" = "gregorian-instant"
 )

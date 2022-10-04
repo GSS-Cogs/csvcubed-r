@@ -2,11 +2,11 @@
 #'
 #' Add a year dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -25,11 +25,11 @@ add.year.column <- function(config, column.name, label = "", description = "", f
 #'
 #' Add a halfyear dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -48,11 +48,11 @@ add.halfyear.column <- function(config, column.name, label = "", description = "
 #'
 #' Add a quarter dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -71,11 +71,11 @@ add.quarter.column <- function(config, column.name, label = "", description = ""
 #'
 #' Add a month dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -94,11 +94,11 @@ add.month.column <- function(config, column.name, label = "", description = "", 
 #'
 #' Add a week dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -117,11 +117,11 @@ add.week.column <- function(config, column.name, label = "", description = "", f
 #'
 #' Add a day dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -140,11 +140,11 @@ add.day.column <- function(config, column.name, label = "", description = "", fr
 #'
 #' Add a hour dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -155,7 +155,7 @@ add.day.column <- function(config, column.name, label = "", description = "", fr
 #' @return A configuration object with the new hour column added to it.
 #' @export
 add.hour.column <- function(config, column.name, label = "", description = "", from.existing = "", definition.uri = "", cell.uri.template = "", code.list = "") {
-  config <- add.dimension.column(config =config, column.name = column.name, label = label, description= description, from.existing =from.existing, definition.uri =definition.uri,  cell.uri.template = cell.uri.template, code.list = code.list, from.template = "hour")
+  config <- add.dimension.column(config = config, column.name = column.name, label = label, description = description, from.existing = from.existing, definition.uri = definition.uri, cell.uri.template = cell.uri.template, code.list = code.list, from.template = "hour")
   return(config)
 }
 
@@ -163,11 +163,11 @@ add.hour.column <- function(config, column.name, label = "", description = "", f
 #'
 #' Add a minute dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -186,11 +186,11 @@ add.minute.column <- function(config, column.name, label = "", description = "",
 #'
 #' Add a second dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -209,11 +209,11 @@ add.second.column <- function(config, column.name, label = "", description = "",
 #'
 #' Add a government year dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -232,11 +232,11 @@ add.governmentyear.column <- function(config, column.name, label = "", descripti
 #'
 #' Add a government half year dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -255,11 +255,11 @@ add.governmenthalfyear.column <- function(config, column.name, label = "", descr
 #'
 #' Add a government quarter dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -278,11 +278,11 @@ add.governmentquarter.column <- function(config, column.name, label = "", descri
 #'
 #' Add a government week dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"
@@ -301,11 +301,11 @@ add.governmentweek.column <- function(config, column.name, label = "", descripti
 #'
 #' Add a gregorian instant dimension column to the configuration.
 #'
-#' @param config A configuration ob.The configuration object to add the column to.
+#' @param config A configuration object.The configuration object to add the column to.
 #' @param column.name String. A column name in the Data Frame.
 #' @param label String. Label describing the Dimension.
 #' @param description String. A explanation of what the Dimension represents.
-#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.
+#' @param from.existing String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Dimension
 #' @param cell.uri.template String. A template used to map the cell values in this column into URIs, e.g. 'http://example.com/code-list/{+column_csvw_name}'
 #' @param code.list "A code list defines the unique values permitted in a dimension"

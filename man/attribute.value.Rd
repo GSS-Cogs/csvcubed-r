@@ -18,11 +18,19 @@ attribute.value(
 
 \item{definition.uri}{String. The URI link to an existing definition.}
 
-\item{from.existing}{String. The URI to an existing attribute values to extend. Users can use the list attribute.value.from.existing for auto-filling.}
+\item{from.existing}{String. The URI to an existing attribute values to extend. Users can use the list AttibuteValues for auto-filling.}
 }
 \value{
 a value object storing the attribute value information.
 }
 \description{
 create one attribute value object for the value argument in the add.resource.attribute.column() function.
+}
+\examples{
+data(example.data)
+config <- create.config(example.data, title = "sweden_at_eurovision_no_missing")
+config <- add.attribute.column(config,
+  column.name = "Status", label = "status",
+  values = values(attribute.value(label = "Final"), attribute.value(label = "Provisional"))
+)
 }

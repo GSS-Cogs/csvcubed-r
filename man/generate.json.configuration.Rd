@@ -2,7 +2,7 @@
 % Please edit documentation in R/code.R
 \name{generate.json.configuration}
 \alias{generate.json.configuration}
-\title{Generate the configuration json file to the connection diretory. Returns the json string.}
+\title{Generate the configuration json file}
 \usage{
 generate.json.configuration(config, file)
 }
@@ -15,18 +15,23 @@ generate.json.configuration(config, file)
 The json scheme string of the  configuration.
 }
 \description{
-Generate the configuration json file to the connection diretory. Returns the json string.
+Generate the configuration json file to the working diretory. Returns the json string.
 }
 \examples{
+\dontrun{
 data(example.data)
-config <- create.config(df = example.data,
-   id = "12341241", title = "sweden_at_eurovision_no_missing",
-   dataset.issued = "2022-04-08",
-   keywords = c("Eurovision", "Song Contest", "Sweden", "European Broadcasting Union"))
-# the following will return the json string and generate a json file
-# called "config.json" in the current working directory.
-json.string <- generate.json.configuration(config, "config.json")
+config <- create.config(
+  df = example.data,
+  id = "12341241", title = "sweden_at_eurovision_no_missing",
+  dataset.issued = "2022-04-08",
+  keywords = c("Eurovision", "Song Contest", "Sweden", "European Broadcasting Union")
+)
 
-#remove the file
-file.remove("config.json")
+# the following will return the json string and generate a json file
+# called "my-data.json" in the current working directory.
+generate.json.configuration(config, "my-data.json")
+
+# Make sure your csv file has the same name
+write.csv(example.data, "my-data.csv")
+}
 }

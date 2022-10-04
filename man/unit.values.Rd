@@ -7,7 +7,7 @@
 unit.values(...)
 }
 \arguments{
-\item{...}{unit objects. Created by unit().}
+\item{...}{unit objects created by unit.value() or strings.}
 }
 \description{
 Create a unit.values object for use in other functions
@@ -15,7 +15,11 @@ Create a unit.values object for use in other functions
 \examples{
 data(example.data)
 config <- create.config(example.data, title = "sweden_at_eurovision_no_missing")
-config <- add.unit.column(config, column.name = "Value",
-   unit.values = unit.values(unit(label = "Unitless"),
-   unit(label = "Number")))
+config <- add.unit.column(config,
+  column.name = "Value",
+  unit.values = unit.values(
+    unit.value(label = "Unitless"),
+    unit.value(label = "Number")
+  )
+)
 }

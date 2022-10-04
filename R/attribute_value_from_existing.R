@@ -1,15 +1,15 @@
 #' A list to be used to fill in the from.existing argument of attribute.value().
 #'
 #' @export
-attribute.value.from.existing <- list(
-  "unitMeasure" = "http://gss-data.org.uk/def/concept/cogs-markers/suppressed",
-  "unitMult" = "http://gss-data.org.uk/def/concept/cogs-markers/estimated",
-  "obsStatus" = "http://gss-data.org.uk/def/concept/cogs-markers/disclosive",
-  "profMeth" = "http://gss-data.org.uk/def/concept/cogs-markers/confidential",
-  "profImp" = "http://gss-data.org.uk/def/concept/cogs-markers/not-applicable",
-  "profStatCom" = "http://gss-data.org.uk/def/concept/cogs-markers/imputed",
-  "obsPreBreak" = "http://gss-data.org.uk/def/concept/cogs-markers/not-available",
-  "profCond" = "http://gss-data.org.uk/def/concept/cogs-markers/provisional",
-  "prof" = "http://gss-data.org.uk/def/concept/cogs-markers/revised",
-  "refPerWgts" = "http://gss-data.org.uk/def/concept/cogs-markers/under-review"
+AttributeValues <- list(
+  "suppressed" = "http://gss-data.org.uk/def/concept/cogs-markers/suppressed",
+  "estimated" = "http://gss-data.org.uk/def/concept/cogs-markers/estimated",
+  "disclosive" = "http://gss-data.org.uk/def/concept/cogs-markers/disclosive",
+  "confidential" = "http://gss-data.org.uk/def/concept/cogs-markers/confidential",
+  "not_applicable" = "http://gss-data.org.uk/def/concept/cogs-markers/not-applicable",
+  "imputed" = "http://gss-data.org.uk/def/concept/cogs-markers/imputed",
+  "not_available" = "http://gss-data.org.uk/def/concept/cogs-markers/not-available",
+  "provisional" = "http://gss-data.org.uk/def/concept/cogs-markers/provisional",
+  "revised" = "http://gss-data.org.uk/def/concept/cogs-markers/revised",
+  "under_review" = "http://gss-data.org.uk/def/concept/cogs-markers/under-review"
 )

@@ -4,10 +4,10 @@
 \alias{add.measure.column}
 \title{Add a measure column.}
 \usage{
-add.measure.column(config, column.name = "", values = "")
+add.measure.column(config, column.name, values = "")
 }
 \arguments{
-\item{config}{A configuration object.The configuration object to add the column to.}
+\item{config}{A configuration object. The configuration object to add the column to.}
 
 \item{column.name}{String. A column name in the Data Frame.}
 
@@ -24,7 +24,11 @@ Add a measure column to the configuration.
 \examples{
 data(example.data)
 config <- create.config(example.data, title = "sweden_at_eurovision_no_missing")
-config <- add.measure.column(config, column.name = "Measure",
-   values = values(measure.value(label = "Final Rank"),measure.value(label = "Final Points"),
-   measure.value(label = "People on Stage")))
+config <- add.measure.column(config,
+  column.name = "Measure",
+  values = values(
+    measure.value(label = "Final Rank"), measure.value(label = "Final Points"),
+    measure.value(label = "People on Stage")
+  )
+)
 }

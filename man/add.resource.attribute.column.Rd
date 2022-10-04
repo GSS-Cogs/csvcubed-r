@@ -6,7 +6,7 @@
 \usage{
 add.resource.attribute.column(
   config,
-  column.name = "",
+  column.name,
   label = "",
   description = "",
   from.existing = "",
@@ -25,7 +25,7 @@ add.resource.attribute.column(
 
 \item{description}{String. A explanation of what the Attribute represents.}
 
-\item{from.existing}{String. URI of an existing attribute to reuse or extend. Can use the built-in list "attribute.from.existing" to auto-fill.}
+\item{from.existing}{String. URI of an existing attribute to reuse or extend. Can use the built-in list "Attributes" to auto-fill.}
 
 \item{definition.uri}{String. Source URI for the definition of the Attribute.}
 
@@ -46,7 +46,9 @@ add a resource type attribute column to be included in the configuration object.
 \examples{
 data(example.data)
 config <- create.config(example.data, title = "sweden_at_eurovision_no_missing")
-config <- add.resource.attribute.column(config, column.name = "Status", label = "status",
-   values = values(attribute.value(label = "Final"), attribute.value(label = "Provisional")))
+config <- add.resource.attribute.column(config,
+  column.name = "Status", label = "status",
+  values = values(attribute.value(label = "Final"), attribute.value(label = "Provisional"))
+)
 
 }

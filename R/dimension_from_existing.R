@@ -1,6 +1,6 @@
 #' A list of URIs that can be used to fill in the from.existing argument in add.dimension.column().
 #' @export
-dimension.from.existing <- list(
+Dimensions <- list(
   "refPeriod" = "http://purl.org/linked-data/sdmx/2009/dimension#refPeriod",
   "age" = "http://purl.org/linked-data/sdmx/2009/dimension#age",
   "civilStatus" = "http://purl.org/linked-data/sdmx/2009/dimension#civilStatus",

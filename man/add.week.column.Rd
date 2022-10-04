@@ -16,7 +16,7 @@ add.week.column(
 )
 }
 \arguments{
-\item{config}{A configuration ob.The configuration object to add the column to.}
+\item{config}{A configuration object.The configuration object to add the column to.}
 
 \item{column.name}{String. A column name in the Data Frame.}
 
@@ -24,7 +24,7 @@ add.week.column(
 
 \item{description}{String. A explanation of what the Dimension represents.}
 
-\item{from.existing}{String. URI of an existing dimension to reuse or extend. Use list dimension.from.existing to auto-fill.}
+\item{from.existing}{String. URI of an existing dimension to reuse or extend. Use list Dimensions to auto-fill.}
 
 \item{definition.uri}{String. Source URI for the definition of the Dimension}
 

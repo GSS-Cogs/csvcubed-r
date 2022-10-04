@@ -11,9 +11,9 @@ add.unit.column(config, column.name, unit.values = "")
 
 \item{column.name}{String. A column name in the Data Frame.}
 
-\item{unit.values}{The Units used in this dataset.Can be:
+\item{unit.values}{The Units used in this dataset. Can be:
 A boolean. Whether to automatically generate new units from the unique values in this column.
-A "unit.values" object. A list of units permitted in this column. Use unit.values() and unit() to build such an object.}
+A "unit.values" object. A list of units permitted in this column. Use unit.values() and unit.value() to build such an object.}
 }
 \description{
 Add a unit column to the configuration.
@@ -21,6 +21,8 @@ Add a unit column to the configuration.
 \examples{
 data(example.data)
 config <- create.config(example.data, title = "sweden_at_eurovision_no_missing")
-   unit.values = unit.values(unit(label = "Unitless"),
-   unit(label = "Number"))
+config <- add.unit.column(config,
+  column.name = "Unit",
+  unit.values = unit.values("Numberless", "Unitless")
+)
 }

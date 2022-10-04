@@ -7,13 +7,13 @@
 measure.value(label, description = "", definition.uri = "", from.existing = "")
 }
 \arguments{
-\item{label}{String.A label describing this attribute value}
+\item{label}{String.A label describing this measure value}
 
-\item{description}{String. The description of the attribute values}
+\item{description}{String. The description of the measure values}
 
 \item{definition.uri}{String. The URI link to an existing definition.}
 
-\item{from.existing}{String. The URI to an existing attribute values to extend. Users can use the list attribute.value.from.existing for auto-filling.}
+\item{from.existing}{String. The URI to an existing measure values to extend. Users can use the list Measures for auto-filling.}
 }
 \value{
 a value object storing the measure value information.
@@ -24,7 +24,11 @@ create one measure value object for the value argument in the add.measure.column
 \examples{
 data(example.data)
 config <- create.config(example.data, title = "sweden_at_eurovision_no_missing")
-config <- add.measure.column(config, column.name = "Measure",
-   values = values(measure.value(label = "Final Rank"),
-   measure.value(label = "Final Points"), measure.value(label = "People on Stage")))
+config <- add.measure.column(config,
+  column.name = "Measure",
+  values = values(
+    measure.value(label = "Final Rank"),
+    measure.value(label = "Final Points"), measure.value(label = "People on Stage")
+  )
+)
 }

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(csvcubedconfiggenerator)
+library(csvcubedr)
 library(magrittr)
-test_check("csvcubedconfiggenerator")
+test_check("csvcubedr")

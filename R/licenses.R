@@ -1,6 +1,6 @@
 #' A list of licence uris that could be used to fill in the license function argument in create.config().
 #' @export
-licences <- list(
+Licenses <- list(
   "Digital_Public_Space_Licence" = "http://bbcarchdev.github.io/licences/dps/1.0#id",
   "CC0_1.0_Universal_Public_Domain_Dedication" = "http://creativecommons.org/publicdomain/zero/1.0/",
   "The_Library_of_Congress_Linked_Data_Service" = "http://id.loc.gov/about/",
