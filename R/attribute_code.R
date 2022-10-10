@@ -57,7 +57,7 @@ add.resource.attribute.column <- function(config,
 #' @param from.existing String. URI of an existing attribute to reuse or extend. Can use the built-in list "Attributes" to auto-fill.
 #' @param definition.uri String. Source URI for the definition of the Attribute.
 #' @param required Boolean. Whether or not it is required that every observation has a value for this attribute.
-#' @param data.type String. "The data type of the attribute values". Can use the built-in list "data.type" to auto-fill.
+#' @param data.type String. "The data type of the attribute values". Can use the built-in list "DataTypes" to auto-fill.
 #' @return A configuration object with the new column added to it.
 #' @examples
 #' data(example.data)

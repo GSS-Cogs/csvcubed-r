@@ -1,21 +1,26 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # csvcubedr
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-This R package benefits R users by describing their CSV files to improve
-the R user experience of Csvcubed. The package aims to provide valuable,
-intuitive and adequately powerful functions to configure the data frame
-as the user wishes to and generates the JSON configuration file. Besides
-the basic functionality, the project includes other user-friendly
-features to improve the user experience. For example, the project
-includes built-in auto-fill lists to help users to fill in the
-information efficiently and accurately. Also, it produces error messages
-to guide the user to correct their input and eventually make a
-functioning configuration.
+This R package benefits R users by describing their CSV files to improve the R user experience of Csvcubed. 
+The package aims to provide valuable, intuitive and adequately powerful functions to configure the data frame as the user wishes to and generates the JSON configuration file. Besides the basic functionality, the project includes other user-friendly features to improve the user experience. For example, the project includes built-in auto-fill lists to help users to fill in the information efficiently and accurately. Also, it produces error messages to guide the user to correct their input and eventually make a functioning configuration. 
+
 
 ## Installation
 
@@ -29,7 +34,7 @@ library(csvcubedr)
 
 Creating a configuration for the example data included library:
 
-``` r
+```{r example}
 library(csvcubedr)
 library(magrittr)
 config <- create.config(example.data,
@@ -44,25 +49,24 @@ config <- create.config(example.data,
 
 Adding a dimension column:
 
-``` r
+```{r}
 config <- add.dimension.column(config, column.name = "Entrant", label = "Entrant")
 ```
 
 Adding a dimension from a template:
 
-``` r
+```{r}
 config <- add.year.column(config, column.name = "Year")
 ```
 
 Adding a Attribute column. see help(values), and help(AttributeValues):
 
-``` r
+```{r}
 config <- add.attribute.column(config, column.name = "Status", values = values(attribute.value(label = "Final"), attribute.value(label = "Provisional")))
 ```
 
 Adding a Measure column:
-
-``` r
+```{r}
 config <- add.measure.column(config,
   column.name = "Measure",
   values = values(
@@ -73,29 +77,25 @@ config <- add.measure.column(config,
 ```
 
 Adding a observation column:
-
-``` r
+```{r}
 config <- add.observation.column(config, column.name = "Value")
 ```
 
 Adding a unit column:
-
-``` r
+```{r}
 config <- add.unit.column(config,
   column.name = "Unit",
   unit.values = unit.values("Numberless", "Unitless")
 )
 ```
 
-Finally, generate the JSON metadata called “my-data.json”, use the
-commented code:
-
-``` r
+Finally, generate the JSON metadata called "my-data.json", use the commented code(we have prevented generating a file):
+```{r}
 #generate.json.configuration(config, "my-data.json")
 ```
-
-Make sure your csv file has the same name, use the commented code:
-
-``` r
+Make sure your csv file has the same name, use the commented code(we have prevented generating a file):
+```{r}
 #write.csv(example.data, "my-data.csv")
 ```
+
+

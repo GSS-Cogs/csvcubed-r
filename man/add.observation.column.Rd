@@ -4,12 +4,20 @@
 \alias{add.observation.column}
 \title{add a observation column}
 \usage{
-add.observation.column(config, column.name, measure = "", unit = "")
+add.observation.column(
+  config,
+  column.name,
+  data.type = "",
+  measure = "",
+  unit = ""
+)
 }
 \arguments{
 \item{config}{A configuration object.The configuration object to add the column to.}
 
 \item{column.name}{String. A column name in the Data Frame.}
+
+\item{data.type}{String. "The data type of the attribute values". Can use the built-in list "DataTypes" to auto-fill.}
 
 \item{measure}{A value object. The characteristic which was measured in all observation. Use measure.value() to create such object for this argument.}
 

@@ -147,7 +147,7 @@ assign.column.attribute.measure <- function(config, column.name, attribute, meas
   if (inherits(measure, "value")) {
     config$columns[[column.name]][[attribute]] <- unclass(measure)
   } else if (is.single.string(measure) && !is.empty.string(measure)) {
-    assign.column.attribute.measure(config, column.name, attribute, measure = measure.value(measure))
+    config <- assign.column.attribute.measure(config, column.name, attribute, measure = measure.value(label=measure))
   } else if (!is.empty.string(measure)) {
     stop("Warning: measure does not meet requirement. Try measure.value()")
   }
@@ -160,7 +160,7 @@ assign.column.attribute.unit <- function(config, column.name, attribute, unit) {
   if (inherits(unit, "unit")) {
     config$columns[[column.name]][[attribute]] <- unclass(unit)
   } else if (is.single.string(unit) && !is.empty.string(unit)) {
-    assign.column.attribute.unit(config, column.name, attribute, unit = unit.value(unit))
+    config <- assign.column.attribute.unit(config, column.name, attribute, unit = unit.value(unit))
   } else if (!is.empty.string(unit)) {
     stop("Warning: unit does not meet requirement. Try unit()")
   }

@@ -11,8 +11,8 @@
 #' @param creator A string. The creator of the data set (uri). Can use built-in list "Organizations" to auto-fill.
 #' @param themes A vector of strings. The themes of the data set.
 #' @param keywords A vector of strings. The keywords of the dataset.
-#' @param dataset.issued A String. Date time that the data set was initially published in ISO 8601 format, e.g. 2022-03-31 or 2022-03-31T12:54:30Z.
-#' @param dataset.modified A String. Date time that the data set was last modified published in ISO 8601 format, e.g. 2022-03-31 or 2022-03-31T12:54:30Z.
+#' @param dataset.issued A String. Date time that the data set was initially published in anytime::anytime() supported formate. See help(anytime())
+#' @param dataset.modified A String. Date time that the data set was last modified published in anytime::anytime() supported formate. See help(anytime())
 #' @param license A String. URI that represents the copyright license applying to this cube. Can use built-in list "Licences" to auto-fill.
 #' @param public.contact.point.uri A string. URI that provides a public contact point for discussion of the data set, e.g. mailto:contact.point@example.com.
 #' @return A configuration object.

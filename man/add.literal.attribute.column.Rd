@@ -28,7 +28,7 @@ add.literal.attribute.column(
 
 \item{definition.uri}{String. Source URI for the definition of the Attribute.}
 
-\item{data.type}{String. "The data type of the attribute values". Can use the built-in list "data.type" to auto-fill.}
+\item{data.type}{String. "The data type of the attribute values". Can use the built-in list "DataTypes" to auto-fill.}
 
 \item{required}{Boolean. Whether or not it is required that every observation has a value for this attribute.}
 }

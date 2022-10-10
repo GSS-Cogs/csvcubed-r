@@ -39,9 +39,9 @@ create.config(
 
 \item{keywords}{A vector of strings. The keywords of the dataset.}
 
-\item{dataset.issued}{A String. Date time that the data set was initially published in ISO 8601 format, e.g. 2022-03-31 or 2022-03-31T12:54:30Z.}
+\item{dataset.issued}{A String. Date time that the data set was initially published in anytime::anytime() supported formate. See help(anytime())}
 
-\item{dataset.modified}{A String. Date time that the data set was last modified published in ISO 8601 format, e.g. 2022-03-31 or 2022-03-31T12:54:30Z.}
+\item{dataset.modified}{A String. Date time that the data set was last modified published in anytime::anytime() supported formate. See help(anytime())}
 
 \item{license}{A String. URI that represents the copyright license applying to this cube. Can use built-in list "Licences" to auto-fill.}
 
