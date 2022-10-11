@@ -1,224 +1,186 @@
-config_csv <- function(df,
-                          id ='' ,
-                          title ='' ,
-                          description  ='' ,
-                          summary ='',
-                          publisher ='',
-                          creator ='' ,
-                          themes  ='',
-                          keywords ='',
-                          dataset.issued ='',
-                          dataset.modified ='',
-                          license ='',
-                          public.contact.point.uri=''){
-    config<- list()
-    class(config) <- "configuration"
-    config$`$schema` = 'https://purl.org/csv-cubed/qube-config/v1'
-    if(id != ''){
-      config$id = if (isSingleString(id)) id else stop('Warning: \'id\' must be a single nonempty string.')
-    }
-    if(title != ''){
-      config$title = if (isSingleString(title)) title else stop('Warning: \'title\' must be a single nonempty string.')
-    }
-    if(summary != ''){
-      config$summary = if (isSingleString(summary)) summary else stop('Warning: \'summary\' must be a single nonempty string.')
-    }
-    if(publisher != ''){
-      config$publisher = if (isSingleString(publisher)&is_valid_url(publisher)) publisher else stop('Warning: \'publisher\' must be a URL.')
-    }
-    if(creator != ''){
-      config$creator = if (isSingleString(creator) &is_valid_url(creator)) creator else  stop('Warning: \'creator\' must be a URL .')
-    }
-    config <- assign.themes(config, themes)
-    config <- assign.keywords(config,keywords)
-    if (dataset.issued!= ''){
-      config$dataset_issued = if (isSingleString(dataset.issued)) anytime::iso8601(anytime::anytime(dataset.issued)) else stop('Warning: \'dataset.issued\' must be a single nonempty string.')
-    }
-    if (dataset.modified!= ''){
-      config$dataset_modified = if (isSingleString(dataset.modified)) anytime::iso8601(anytime::anytime(dataset.modified)) else stop('Warning: \'dataset_modified\' must be a single nonempty string.')
-    }
-    if(license !=''){
-      config$license = if (isSingleString(license) & is_valid_url(license)) license else stop('Warning: \'license\' must be an URL .')
-    }
-    if(public.contact.point.uri != ''){
-      config$public_contact_point_uri = if (isSingleString(public.contact.point.uri) &is_valid_url(public.contact.point.uri)) public.contact.point.uri else print('Warning: \'public.contact.point.uri\' must be an URL .')
-    }
-    config$column_names = names(df)
-    config$columns = list()
-    return(config)
-}
-
-
-add.dimension.configuration <- function(config,
-                                        label = '',
-                                        description= '',
-                                        from.existing='',
-                                        definition.uri='',
-                                        uri.override='',
-                                        cell.uri.template='',
-                                        code.list='',
-                                        from.template=''
-){
-  config <- add.column.configuration(config,
-                           label = label,
-                           type = 'dimension',
-                           description = description,
-                           from.existing = from.existing,
-                           definition.uri = definition.uri,
-                           uri.override =uri.override,
-                           cell.uri.template = cell.uri.template,
-                           code.list= code.list,
-                           from.template = from.template)
-  return(config)
-}
-
-add.attribute.configuration(config,
-                            label = '',
-                            description = '',
-                            from.existing ='',
-                            definition_uri = '',
-                            data.type = '',
-                            required = '',
-                            values = '',
-                            from.template ='',
-                            resource.or.literal = 'resource'){
-  config <- add.column.configuration(config,
-                                     label,
-                                     type = 'attribute',
-                                     description,
-                                     from.existing,
-                                     definition.uri,
-                                     data.type,
-                                     required,
-                                     code.list,
-                                     values,
-                                     from.template)
-}
-
-# add.attribute.configuration(config, "Label", values=c(AttributeValue("Attribute value label"), AttributeValue("Another Attribute Value")))
-# add.attribute.configuration(config, "Label", values=c("Attribute value label", "Another Attribute Value"))
-
-AttributeValue <- function(label, description='', from.existing='') {
-  return list(label=label, description=description, from_existing=from.existing)
-}
-
-add.column.configuration<- function(config,
-                                label = '',
-                                type = '',
-                                description = '',
-                                from.existing = '',
-                                definition.uri = '',
-                                uri.override='',
-                                cell.uri.template='',
-                                code.list='',
-                                from.template='',
-                                data.type = '',
-                                required = ''){
-  if (label %in% config$column_names){
-    eval(str2expression(paste('config$columns<- append(config$columns, list(', label, '= list()',  '))', sep='')))
+#' creating the configuration
+#'
+#' Users can use this function to configure the metadata of the configuration, and then add column configurations by using other functions.
+#'
+#' @param df A dataframe. The dataframe should be in the standard shape, refer to https://gss-cogs.github.io/csvcubed-docs/external/guides/shape-data/#standard-shape.
+#' @param id A string. A unique id for the cube.
+#' @param title A string. A title for this data set.
+#' @param description A string. A longer description of the cube.
+#' @param summary  A string. A shorter summary of the data set.
+#' @param publisher A string. The publisher of the data set (uri). Can use built-in list "Organizations" to auto-fill.
+#' @param creator A string. The creator of the data set (uri). Can use built-in list "Organizations" to auto-fill.
+#' @param themes A vector of strings. The themes of the data set.
+#' @param keywords A vector of strings. The keywords of the dataset.
+#' @param dataset.issued A String. Date time that the data set was initially published in anytime::anytime() supported formate. See help(anytime())
+#' @param dataset.modified A String. Date time that the data set was last modified published in anytime::anytime() supported formate. See help(anytime())
+#' @param license A String. URI that represents the copyright license applying to this cube. Can use built-in list "Licences" to auto-fill.
+#' @param public.contact.point.uri A string. URI that provides a public contact point for discussion of the data set, e.g. mailto:contact.point@example.com.
+#' @return A configuration object.
+#' @examples
+#' # load data
+#' data(example.data)
+#' # create a configuration for example.data
+#' config <- create.config(example.data,
+#'   title = "Sweden at Eurovision",
+#'   summary = "List of Swedish entries to the Eurovision Song Contest since 1958.",
+#'   license = "https://creativecommons.org/licenses/by/4.0/",
+#'   publisher = Organizations$Open_Knowledge_Foundation,
+#'   dataset.issued = "2022-04-08",
+#'   keywords = c("Eurovision", "Song Contest", "Sweden", "European Broadcasting Union")
+#' )
+#' @export
+create.config <- function(df,
+                          id = "",
+                          title = "",
+                          description = "",
+                          summary = "",
+                          publisher = "",
+                          creator = "",
+                          themes = "",
+                          keywords = "",
+                          dataset.issued = "",
+                          dataset.modified = "",
+                          license = "",
+                          public.contact.point.uri = "") {
+  config <- list()
+  class(config) <- "configuration"
+  config$`$schema` <- "https://purl.org/csv-cubed/qube-config/v1"
+  if (!inherits(df, "data.frame")) {
+    stop("Warning: df must be of data.frame class.")
+  }
+  if (is.single.string(id)) {
+    config$id <- if (!is.empty.string(id)) id
   } else {
-    stop(paste('Warning: label \"', label, '\"is not one of the columns.', sep = ''))
+    stop("Warning: 'id' must be a single nonempty string.")
   }
-  eval(str2expression(paste('config$columns$', label, '<- append(', 'config$columns$', label,', list(type=\'', type, '\'))', sep='')))
-  config <- assign.column.attribute.string(config, label, 'description', description)
-  config <- assign.column.attribute.uri(config, label, 'from_existing', from.existing)
-  config <- assign.column.attribute.uri(config, label, 'definition_uri', definition.uri)
-  config <- assign.column.attribute.string(config, label, 'uri_override', uri.override)
-  config <- assign.column.attribute.uri(config, label, 'cell_uri_template', uri.override)
-  config <- assign.column.code.list(config, label, code.list)
-  config <- assign.column.attribute.string(config,label, 'from_template',from.template)
-  config <- assign.column.attribute.string(config, label, 'data_type', data.type)
-  config <- assign.column.attribute.boolean(config, label, 'required', required)
+  if (is.single.string(title)) {
+    config$title <- if (!is.empty.string(title)) title
+  } else {
+    stop("Warning: 'title' must be a single nonempty string.")
+  }
+  if (is.single.string(summary)) {
+    config$summary <- if (!is.empty.string(summary)) summary
+  } else {
+    stop("Warning: 'summary' must be a single nonempty string.")
+  }
+  if (is.valid.uri(publisher)) {
+    config$publisher <- publisher
+  } else if (!is.empty.string(publisher)) {
+    stop("Warning: 'publisher' must be a URI.")
+  }
+  if (is.valid.uri(creator)) {
+    config$creator <- creator
+  } else if (!is.empty.string(creator)) {
+    stop("Warning: 'creator' must be a URI .")
+  }
+  config <- assign.themes(config, themes)
+  config <- assign.keywords(config, keywords)
+  if (is.single.string(dataset.issued)) {
+    config$dataset_issued <- if (!is.empty.string(dataset.issued)) anytime::iso8601(anytime::anytime(dataset.issued))
+  } else {
+    stop("Warning: 'dataset.issued' must be a single nonempty string.")
+  }
+  if (is.single.string(dataset.modified)) {
+    config$dataset_modified <- if (!is.empty.string(dataset.modified)) anytime::iso8601(anytime::anytime(dataset.modified))
+  } else {
+    stop("Warning: 'dataset_modified' must be a single nonempty string.")
+  }
+  if (is.valid.uri(license)) {
+    config$license <- license
+  } else if (!is.empty.string(license)) {
+    stop("Warning: 'license' must be a URI .")
+  }
+  if (is.valid.uri(public.contact.point.uri)) {
+    config$public_contact_point_uri <- public.contact.point.uri
+  } else if (!is.empty.string(public.contact.point.uri)) {
+    stop("Warning: 'public.contact.point.uri' must be a URI.")
+  }
+  config$column_names <- names(df)
+  config$columns <- list()
   return(config)
 }
 
-generate.json.configuration <- function(config, file =''){
-  config_list <- unclass(config)
-  config_list <- within(config_list, rm(column_names))
-  if (length(config_list$columns) == 0){
-    config_list <- within(config_list, rm(columns))
+#' private function
+#' @noRd
+add.column.configuration <- function(config,
+                                     column.name,
+                                     label = "",
+                                     type = "",
+                                     description = "",
+                                     from.existing = "",
+                                     definition.uri = "",
+                                     uri.override = "",
+                                     cell.uri.template = "",
+                                     code.list = "",
+                                     from.template = "",
+                                     data.type = "",
+                                     required = "",
+                                     values = "",
+                                     unit = "",
+                                     measure = "",
+                                     unit.values = "") {
+  if (column.name %in% names(config$columns)) {
+    stop(paste("Warning: column \"", column.name, "\" is already configured. ", sep = ""))
   }
-  config_json_str= jsonlite::toJSON(config_list, auto_unbox = T, pretty = T)
-  print(config_json_str)
-  write(config_json_str, file = file)
-}
-
-isSingleString <- function(input) {
-  is.character(input) & length(input) == 1
-}
-
-is_valid_url <- function(string) {
-  parsed_address <- url_parse(string)
-  !is.na(parsed_address$scheme)
-}
-
-assign.column.attribute.uri<- function(config, label, attribute, uri){
-  if (is_valid_url(uri)){
-    eval(str2expression(paste('config$columns$', label, '<- append(', 'config$columns$', label,', list(', attribute, '=\'', uri, '\'))', sep='')))
-  } else if(uri ==''){
-    return(config)
+  if (column.name %in% config$column_names) {
+    config$columns[[column.name]] <- list()
+  } else {
+    stop(paste('Warning: column \"', column.name, '\"is not one of the columns.', sep = ""))
   }
-  else{
-    stop(paste('Warning: ',attribute,' must a uri.', sep=''))
-  }
+  config <- assign.column.attribute.string(config, column.name, "type", type)
+  config <- assign.column.attribute.string(config, column.name, "label", label)
+  config <- assign.column.attribute.string(config, column.name, "description", description)
+  config <- assign.column.attribute.uri(config, column.name, "from_existing", from.existing)
+  config <- assign.column.attribute.uri(config, column.name, "definition_uri", definition.uri)
+  config <- assign.column.attribute.string(config, column.name, "uri_override", uri.override)
+  config <- assign.column.attribute.uri(config, column.name, "cell_uri_template", cell.uri.template)
+  config <- assign.column.attribute.code.list(config, column.name, code.list)
+  config <- assign.column.attribute.string(config, column.name, "from_template", from.template)
+  config <- assign.column.attribute.string(config, column.name, "data_type", data.type)
+  config <- assign.column.attribute.boolean(config, column.name, "required", required)
+  config <- assign.column.attribute.values(config, column.name, "values", values)
+  config <- assign.column.attribute.measure(config, column.name, "measure", measure)
+  config <- assign.column.attribute.unit(config, column.name, "unit", unit)
+  config <- assign.column.attribute.unit.values(config, column.name, "values", unit.values)
   return(config)
 }
 
-assign.column.attribute.string<-function(config, label, attribute, string){
-  if (isSingleString(string)){
-    if (string != ''){
-    eval(str2expression(paste('config$columns$', label, '<- append(', 'config$columns$', label,', list(', attribute, '=\'', string, '\'))', sep='')))
+
+#' Generate the configuration json file
+#'
+#' Generate the configuration json file to the working diretory. Returns the json string.
+#' @param config An configuration object. The configuration to be serialized into json.
+#' @param file A string. The directory path and file name of the json file.
+#' @return The json scheme string of the  configuration.
+#' @examples
+#' \dontrun{
+#' data(example.data)
+#' config <- create.config(
+#'   df = example.data,
+#'   id = "12341241", title = "sweden_at_eurovision_no_missing",
+#'   dataset.issued = "2022-04-08",
+#'   keywords = c("Eurovision", "Song Contest", "Sweden", "European Broadcasting Union")
+#' )
+#'
+#' # the following will return the json string and generate a json file
+#' # called "my-data.json" in the current working directory.
+#' generate.json.configuration(config, "my-data.json")
+#'
+#' # Make sure your csv file has the same name
+#' write.csv(example.data, "my-data.csv")
+#' }
+#' @export
+generate.json.configuration <- function(config, file) {
+  if (inherits(config, "configuration")) {
+    config_list <- unclass(config)
+    config_list <- within(config_list, rm("column_names"))
+    if (length(config_list$columns) == 0) {
+      config_list <- within(config_list, rm("columns"))
     }
-  }
-  else{
-    stop(paste('Warning: ',attribute,' must a single nonempty string.', sep=''))
-  }
-  return(config)
-}
-
-assign.column.attribute.boolean<- function(config, label, attribute, boolean){
-  if(is.boolean(boolean)){
-    eval(str2expression(paste('config$columns$', label, '<- append(', 'config$columns$', label,', list(', attribute,'=', boolean, '))', sep='')))
-  } else if(boolean ==''){
-    return(config)
-  } else{
-    stop('Warning: required must be a boolean.')
+    config_json_str <- jsonlite::toJSON(config_list, auto_unbox = T, pretty = T)
+    write(config_json_str, file = file)
+    return(config_json_str)
+  } else {
+    stop("config must be of class \"configuration\", try using create.config().")
   }
 }
-
-assign.column.code.list <- function(config, label, code.list){
-  if (is.boolean(code.list)){
-    eval(str2expression(paste('config$columns$', label, '<- append(', 'config$columns$', label,', list(code_list=', code.list, '\'))', sep='')))
-  } else if(is_valid_url(code.list)){
-    eval(str2expression(paste('config$columns$', label, '<- append(', 'config$columns$', label,', list(code_list=', code.list, '\'))', sep='')))
-  } else if (code.list == ''){
-    return(config)
-  } else{
-    stop('Warning: code.list must be a boolean or a uri.')
-  }
-}
-
-assign.themes <- function(config, themes){
-  if(length(themes)>1)
-    config$themes = themes
-  else if(themes != '')
-    config$themes = themes
-  else if(themes == '')
-    return(config)
-  else
-    stop('Warning: \'themes\' must be a single string or a vector of strings.')
-  return(config)
-}
-
-assign.keywords <- function(config, keywords){
-  if(length(keywords)>1)
-    config$keywords = keywords
-  else if(keywords!='')
-    config$keywords = keywords
-  else if(keywords == '')
-    return(config)
-  else
-    stop('Warning: \'keywords\' must be a single string or a vector of strings.')
-  return(config)
-}
-
