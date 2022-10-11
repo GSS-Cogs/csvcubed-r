@@ -22,6 +22,9 @@ functioning configuration.
 You can install the development version of csvcubedr like so:
 
 ``` r
+install.packages("devtools")
+devtools::install_github("GSS-Cogs/csvcubed-r")
+
 library(csvcubedr)
 ```
 
@@ -88,13 +91,14 @@ config <- add.unit.column(config,
 ```
 
 Finally, generate the JSON metadata called “my-data.json”, use the
-commented code:
+commented code(we have prevented generating a file):
 
 ``` r
 #generate.json.configuration(config, "my-data.json")
 ```
 
-Make sure your csv file has the same name, use the commented code:
+Make sure your csv file has the same name, use the commented code(we
+have prevented generating a file):
 
 ``` r
 #write.csv(example.data, "my-data.csv")

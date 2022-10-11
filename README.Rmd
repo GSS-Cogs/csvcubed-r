@@ -27,6 +27,9 @@ The package aims to provide valuable, intuitive and adequately powerful function
 You can install the development version of csvcubedr like so:
 
 ``` r
+install.packages("devtools")
+devtools::install_github("GSS-Cogs/csvcubed-r")
+
 library(csvcubedr)
 ```
 
